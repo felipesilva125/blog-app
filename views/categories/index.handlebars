@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-body">
+        <h4>Lista de Categorias:</h4>        
+        {{#each categories}}
+            <hr>
+            <a href="/categorias/{{Slug}}"><h4>{{Name}}</h4></a>
+            <p>Data de Criação{{Date}}</p>            
+        {{else}}
+            <h5>Nenhuma categoria cadastrada.</h5>
+        {{/each}}
+    </div>
+</div>

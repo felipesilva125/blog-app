@@ -1,0 +1,23 @@
+<div class="jumbotron">
+  <h1 class="display-4">Bem-vindo ao blog do Express!</h1>
+  <p class="lead">Este é um blog criado para demonstrar a utilização do Node.js + Express.js + MongoDB</p>
+  <hr class="my-4">  
+  <a class="btn btn-primary btn-lg" href="#" role="button">Criar uma Conta</a>
+</div>
+<hr>
+<h2>Postagens recentes</h2>
+
+{{#each posts}}
+    <div class="card mt-4">
+        <div class="card-body">                        
+            <h3>{{Title}}</h3>
+            <p>Descrição: {{Description}}</p>
+            <a href="/postagem/{{Slug}}"><button class="btn btn-success">Leia Mais</button></a>
+            <hr>
+            <small>Categoria: {{Category.Name}}</small><br>
+            <small>Data da publicação: {{Date}}</small>
+        </div>
+    </div>
+{{else}}
+    <h4 class="mt-3">Nenhuma postagem.</h4>
+{{/each}}
