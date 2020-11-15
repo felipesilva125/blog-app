@@ -3,6 +3,7 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
 const admin = require('./routes/admin')
+const users = require('./routes/user')
 const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -12,6 +13,8 @@ require('./models/Post')
 const Post = mongoose.model("Posts");
 require('./models/Category')
 const Category = mongoose.model("Categories");
+const passport = require('passport');
+require('./config/auth')(passport);
 
 //Config
 
@@ -21,14 +24,17 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 
 //Middleware
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg"); //cria variável global
     res.locals.error_msg = req.flash("error_msg"); //cria variável global
-    next();
+    res.locals.error = req.flash("error"); //erro de autenticação
+    res.locals.user = req.user || null; //usuário logado no sistema
+    next(); //passa para a próxima função de middleware
 });
 
 //Body Parser
@@ -115,9 +121,9 @@ app.get('/categorias/:slug', (req, res) => {
 });
 
 app.use('/admin', admin);
+app.use('/usuarios', users);
 
 const port = 8081;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
-

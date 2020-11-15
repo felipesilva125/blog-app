@@ -10,13 +10,25 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categorias</a>
-      </li>      
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Registro</a>
-      </li>
+      {{#unless user}}                          
+        <li class="nav-item">
+          <a class="nav-link" href="/usuarios/login" tabindex="-1" aria-disabled="true">Login</a>
+        </li>        
+      {{/unless}}      
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {{#if user}}        
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{user.Name}}</a>
+        </li>        
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"> | </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/usuarios/logout" tabindex="-1" aria-disabled="true">Não é voce? Sair</a>
+        </li> 
+      {{/if}}
     </ul>
   </div>
 </nav>
